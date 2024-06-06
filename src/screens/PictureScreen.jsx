@@ -18,19 +18,18 @@ function PictureScreen ({ route, navigation }) {
     console.log('Removing background')
     const _base64 = await removeBackground(image)
     setBase64(_base64)
-    // console.log(base64)
-    // console.log(_path)
-    // setPath(_path)
     setIsLoading(false)
   }
 
   const handleRecognize = async () => {
+    setIsLoading(true)
     console.log('Recognizing')
     const res = await identifyImageWithLlava(base64)
     // console.log(JSON.stringify(res, null, 2))
     if (res) {
       navigation.navigate('Result', { res })
     }
+    setIsLoading(false)
   }
 
   return (
@@ -55,6 +54,7 @@ function PictureScreen ({ route, navigation }) {
         handleRemoveBackground={handleRemoveBackground}
         isLoading={isLoading}
         handleRetakePicture={() => { navigation.goBack() }}
+        isRecognizeEnabled={base64}
       />
     </Layout>
   )
