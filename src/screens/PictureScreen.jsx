@@ -11,7 +11,6 @@ function PictureScreen ({ route, navigation }) {
   const [base64, setBase64] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const { image } = route.params
-  console.log(image)
 
   const handleRemoveBackground = async () => {
     setIsLoading(true)
@@ -27,7 +26,7 @@ function PictureScreen ({ route, navigation }) {
     const res = await identifyImageWithLlava(base64)
     // console.log(JSON.stringify(res, null, 2))
     if (res) {
-      navigation.navigate('Result', { res })
+      navigation.navigate('Result', { res, image })
     }
     setIsLoading(false)
   }
